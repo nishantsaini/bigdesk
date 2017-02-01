@@ -157,7 +157,7 @@ var ClusterStateView = Backbone.View.extend({
                 node.filter(function(d) { return !d.children; }).append("text")
                    .attr("text-anchor", "middle")
                    .attr("dy", ".3em")
-                   .text(function(d) { return (d.name+" ["+ d.shard+"]").substring(0, d.r / 3); });
+                   .text(function(d) { return (d.name.substring(0, 3)+" ["+ d.shard+"]").substring(0, d.r / 3); });
 
             }
         }
@@ -171,7 +171,7 @@ var ClusterStateView = Backbone.View.extend({
             var _shards = indices[indexName].shards[shard];
             for (var _shard in _shards) {
                 if (_shards[_shard].routing.node == nodeId) {
-                    return _shards[_shard].index.size_in_bytes;
+                    return _shards[_shard].store.size_in_bytes;
                 }
             }
         }
