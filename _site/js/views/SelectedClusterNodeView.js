@@ -85,12 +85,12 @@ var SelectedClusterNodeView = Backbone.View.extend({
                 var chart_processCPU_time = bigdesk_charts.processCPU_time.chart(d3.select("#svg_processCPU_time"));
                 var chart_processCPU_pct = null;
                 // sigar & AWS check
-                if (selectedNodeInfo.nodes[selectedNodeId].os.cpu) {
+                /*if (selectedNodeInfo.nodes[selectedNodeId].os.cpu) {
                     chart_processCPU_pct = bigdesk_charts.processCPU_pct.chart(d3.select("#svg_processCPU_pct"),
                             (+selectedNodeInfo.nodes[selectedNodeId].os.cpu.total_cores * 100) + "%");
                 } else {
                     chart_processCPU_pct = bigdesk_charts.not_available.chart(d3.select("#svg_processCPU_pct"));
-                }
+                }*/
                 var chart_processMem = bigdesk_charts.processMem.chart(d3.select("#svg_processMem"));
                 //=======================================================================================================================//
                 var chart_channels = bigdesk_charts.channels.chart(d3.select("#svg_channels"));
@@ -756,7 +756,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                     });
 
                     // --------------------------------------------
-                    // Process: CPU percentage
+                   /*// Process: CPU percentage
 
                     _.defer(function () {
 
@@ -794,7 +794,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                             $("#process_cpu_pct_total").text("n/a");
                             $("#process_cpu_pct_process").text("n/a");
                         }
-                    });
+                    });*/
 
                     // --------------------------------------------
                     // Process: Mem
@@ -1253,7 +1253,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                 );
 
         var processCPU_time = Mustache.render(templates.selectedClusterNode.process_CPU_timeTemplate, jsonModel);
-        var processCPU_pct = Mustache.render(templates.selectedClusterNode.process_CPU_pctTemplate, jsonModel);
+        //var processCPU_pct = Mustache.render(templates.selectedClusterNode.process_CPU_pctTemplate, jsonModel);
 
         var avgProcessTimeCalcType = Mustache.render(templates.avgCalculationType, {id: "process_time_avg_calc_type"});
         processCPU_time = processCPU_time.replace("<!--#-->", avgProcessTimeCalcType);
@@ -1262,10 +1262,10 @@ var SelectedClusterNodeView = Backbone.View.extend({
                 "<div style='overflow: auto;'>" +
                 "<svg width='100%' height='160'>" +
                 "<svg id='svg_processCPU_time' clip_id='clip_processCPU_time' width='46.5%' height='100%' x='0' y='0' preserveAspectRatio='xMinYMid' viewBox='0 0 270 160'/>" +
-                "<svg id='svg_processCPU_pct' clip_id='clip_processCPU_pct' width='46.5%' height='100%' x='54%' y='0' preserveAspectRatio='xMinYMid' viewBox='0 0 270 160'/>" +
+                //"<svg id='svg_processCPU_pct' clip_id='clip_processCPU_pct' width='46.5%' height='100%' x='54%' y='0' preserveAspectRatio='xMinYMid' viewBox='0 0 270 160'/>" +
                 "</svg>" +
                 "<div width='46.5%' style='margin-left: 0%; float: left;'>" + processCPU_time + "</div>" +
-                "<div width='46.5%' style='margin-left: 54%;'>" + processCPU_pct + "</div>" +
+                //"<div width='46.5%' style='margin-left: 54%;'>" + processCPU_pct + "</div>" +
                 "</div>"
                 );
 

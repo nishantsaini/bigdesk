@@ -129,10 +129,10 @@ var templates = {
             "<!--#-->",
             "<div>Total: <span id='process_cpu_time_total'>n/a</span></div>"
         ].join(""),
-        process_CPU_pctTemplate: [
+        /*process_CPU_pctTemplate: [
             "<div>Total: <span id='process_cpu_pct_total'>n/a</span></div>",
             "<div>Process: <span id='process_cpu_pct_process'>n/a</span></div>"
-        ].join(""),
+        ].join(""),*/
         osCpu: [
             "<div>Total: 100%</div>",
             "<div>Used: <span id='os_cpu_used'>n/a</span></div>",
