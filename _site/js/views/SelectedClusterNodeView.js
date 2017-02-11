@@ -69,21 +69,37 @@ var SelectedClusterNodeView = Backbone.View.extend({
                 _view.renderNodeDetail(model);
 
                 // Create all charts
-
-                var chart_fileDescriptors = bigdesk_charts.fileDescriptors.chart(d3.select("#svg_fileDescriptors"));
-                var chart_channels = bigdesk_charts.channels.chart(d3.select("#svg_channels"));
+                //=======================================================================================================================//
                 var chart_jvmThreads = bigdesk_charts.jvmThreads.chart(d3.select("#svg_jvmThreads"));
                 var chart_jvmHeapMem = bigdesk_charts.jvmHeapMem.chart(d3.select("#svg_jvmHeapMem"));
                 var chart_jvmNonHeapMem = bigdesk_charts.jvmNonHeapMem.chart(d3.select("#svg_jvmNonHeapMem"));
                 var chart_jvmGC = bigdesk_charts.jvmGC.chart(d3.select("#svg_jvmGC"));
-				var chart_threadpoolSearch = bigdesk_charts.threadpoolSearch.chart(d3.select("#svg_threadpoolSearch"));
-				var chart_threadpoolIndex = bigdesk_charts.threadpoolIndex.chart(d3.select("#svg_threadpoolIndex"));
-				var chart_threadpoolBulk = bigdesk_charts.threadpoolBulk.chart(d3.select("#svg_threadpoolBulk"));
-				var chart_threadpoolRefresh = bigdesk_charts.threadpoolRefresh.chart(d3.select("#svg_threadpoolRefresh"));
+                //=======================================================================================================================//
+                var chart_threadpoolSearch = bigdesk_charts.threadpoolSearch.chart(d3.select("#svg_threadpoolSearch"));
+                var chart_threadpoolIndex = bigdesk_charts.threadpoolIndex.chart(d3.select("#svg_threadpoolIndex"));
+                var chart_threadpoolBulk = bigdesk_charts.threadpoolBulk.chart(d3.select("#svg_threadpoolBulk"));
+                var chart_threadpoolRefresh = bigdesk_charts.threadpoolRefresh.chart(d3.select("#svg_threadpoolRefresh"));
+                //=======================================================================================================================//
                 var chart_osCpu = bigdesk_charts.osCpu.chart(d3.select("#svg_osCpu"));
                 var chart_osMem = bigdesk_charts.osMem.chart(d3.select("#svg_osMem"));
                 var chart_osSwap = bigdesk_charts.osSwap.chart(d3.select("#svg_osSwap"));
                 var chart_osLoadAvg = bigdesk_charts.osLoadAvg.chart(d3.select("#svg_osLoadAvg"));
+                //=======================================================================================================================//
+                var chart_fileDescriptors = bigdesk_charts.fileDescriptors.chart(d3.select("#svg_fileDescriptors"));
+                var chart_processCPU_time = bigdesk_charts.processCPU_time.chart(d3.select("#svg_processCPU_time"));
+                var chart_processCPU_pct = null;
+                // sigar & AWS check
+                if (selectedNodeInfo.nodes[selectedNodeId].os.cpu) {
+                    chart_processCPU_pct = bigdesk_charts.processCPU_pct.chart(d3.select("#svg_processCPU_pct"),
+                                        ( +selectedNodeInfo.nodes[selectedNodeId].os.cpu.total_cores * 100 )+ "%" );
+                } else {
+                    chart_processCPU_pct = bigdesk_charts.not_available.chart(d3.select("#svg_processCPU_pct"));
+                }
+                var chart_processMem = bigdesk_charts.processMem.chart(d3.select("#svg_processMem"));
+                //=======================================================================================================================//
+                var chart_channels = bigdesk_charts.channels.chart(d3.select("#svg_channels"));
+                var chart_transport_txrx = bigdesk_charts.transport_txrx.chart(d3.select("#svg_transport_txrx"));
+                //=======================================================================================================================//
                 var chart_indicesSearchReqs = bigdesk_charts.indicesSearchReqs.chart(d3.select("#svg_indicesSearchReqs"));
                 var chart_indicesSearchTime = bigdesk_charts.indicesSearchTime.chart(d3.select("#svg_indicesSearchTime"));
                 var chart_indicesGetReqs = bigdesk_charts.indicesGetReqs.chart(d3.select("#svg_indicesGetReqs"));
@@ -92,19 +108,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                 var chart_indicesCacheSize = bigdesk_charts.indicesCacheSize.chart(d3.select("#svg_indicesCacheSize"));
                 var chart_indicesCacheEvictions = bigdesk_charts.indicesCacheEvictions.chart(d3.select("#svg_indicesCacheEvictions"));
                 var chart_indicesIndexingTime = bigdesk_charts.indicesIndexingTime.chart(d3.select("#svg_indicesIndexingTime"));
-                var chart_processCPU_time = bigdesk_charts.processCPU_time.chart(d3.select("#svg_processCPU_time"));
-
-                var chart_processCPU_pct = null;
-                    // sigar & AWS check
-                    if (selectedNodeInfo.nodes[selectedNodeId].os.cpu) {
-                        chart_processCPU_pct = bigdesk_charts.processCPU_pct.chart(d3.select("#svg_processCPU_pct"),
-                                            ( +selectedNodeInfo.nodes[selectedNodeId].os.cpu.total_cores * 100 )+ "%" );
-                    } else {
-                        chart_processCPU_pct = bigdesk_charts.not_available.chart(d3.select("#svg_processCPU_pct"));
-                    }
-
-                var chart_processMem = bigdesk_charts.processMem.chart(d3.select("#svg_processMem"));
-                var chart_transport_txrx = bigdesk_charts.transport_txrx.chart(d3.select("#svg_transport_txrx"));
+                //=======================================================================================================================//
                 var charts_disk_reads_writes_cnt = {};
                 var charts_disk_reads_writes_size = {};
 
@@ -260,8 +264,8 @@ var SelectedClusterNodeView = Backbone.View.extend({
                         }
                     });
 
-					// --------------------------------------------
-					// Threadpool Search
+                    // --------------------------------------------
+                    // Threadpool Search
 
                     _.defer(function(){
                         var threadpool_search_count = bigdesk_charts.threadpoolSearch.series1(stats);
@@ -281,8 +285,8 @@ var SelectedClusterNodeView = Backbone.View.extend({
                         }
                     });
 
-					// --------------------------------------------
-					// Threadpool Index
+                    // --------------------------------------------
+                    // Threadpool Index
 
                     _.defer(function(){
                         var threadpool_index_count = bigdesk_charts.threadpoolIndex.series1(stats);
@@ -302,8 +306,8 @@ var SelectedClusterNodeView = Backbone.View.extend({
                         }
                     });
 
-					// --------------------------------------------
-					// Threadpool Bulk
+                    // --------------------------------------------
+                    // Threadpool Bulk
 
                     _.defer(function(){
                         var threadpool_bulk_count = bigdesk_charts.threadpoolBulk.series1(stats);
@@ -323,8 +327,8 @@ var SelectedClusterNodeView = Backbone.View.extend({
                         }
                     });
 
-					// --------------------------------------------
-					// Threadpool Refresh
+                    // --------------------------------------------
+                    // Threadpool Refresh
 
                     _.defer(function(){
                         var threadpool_refresh_count = bigdesk_charts.threadpoolRefresh.series1(stats);
@@ -1098,20 +1102,20 @@ var SelectedClusterNodeView = Backbone.View.extend({
 
         // OS detail row
 
-        var osInfo1 = Mustache.render(templates.selectedClusterNode.osInfoTemplate1, jsonModel.os);
-        var osInfo2 = Mustache.render(templates.selectedClusterNode.osInfoTemplate2, jsonModel.os);
+        var osInfo1 = Mustache.render(templates.selectedClusterNode.osInfoTemplate1, jsonModel);
+        //var osInfo2 = Mustache.render(templates.selectedClusterNode.osInfoTemplate2, jsonModel);
 
         var osp1 = this.make("p", {}, osInfo1);
-        var osp2 = this.make("p", {}, osInfo2 );
+        //var osp2 = this.make("p", {}, osInfo2 );
 
         var osCol1 = this.make("div", {"class":"fourcol"});
-        var osCol2 = this.make("div", {"class":"eightcol last"});
+        //var osCol2 = this.make("div", {"class":"eightcol last"});
 
         var rowOSInfo = this.make("div", {"class":"row nodeDetail", "id":"osInfo"});
 
-        $(rowOSInfo).append(osCol1, osCol2);
+        $(rowOSInfo).append(osCol1);
         $(osCol1).append(osp1);
-        $(osCol2).append(osp2);
+        //$(osCol2).append(osp2);
 
         // OS row for charts
 

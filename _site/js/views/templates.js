@@ -207,19 +207,20 @@ var templates = {
         ].join("<br>"),
 
         osInfoTemplate1: [
-            "CPU vendor: {{#cpu.vendor}}{{cpu.vendor}}{{/cpu.vendor}}{{^cpu.vendor}}n/a{{/cpu.vendor}}",
-            "CPU model: {{#cpu.model}}{{cpu.model}} ({{cpu.mhz}} MHz){{/cpu.model}}{{^cpu.model}}n/a{{/cpu.model}}",
-            "CPU total logical cores: {{#cpu.total_cores}}{{cpu.total_cores}}{{/cpu.total_cores}}{{^cpu.total_cores}}n/a{{/cpu.total_cores}}",
-//            "CPU sockets: {{cpu.total_sockets}} with {{cpu.cores_per_socket}} cores each", // seems like there is a sigar bug?
-            "CPU cache: {{#cpu.cache_size}}{{cpu.cache_size}}{{/cpu.cache_size}}{{^cpu.cache_size}}n/a{{/cpu.cache_size}}"
+            "Refresh Interval: {{#os.refresh_interval_in_millis}}{{os.refresh_interval_in_millis}} ms{{/os.refresh_interval_in_millis}}{{^os.refresh_interval_in_millis}}n/a{{/os.refresh_interval_in_millis}}",
+            "Name: {{#os.name}}{{os.name}}{{/os.name}}{{^os.name}}n/a{{/os.name}}",
+            "JVM Architecture: {{#os.arch}}{{os.arch}}{{/os.arch}}{{^os.arch}}n/a{{/os.arch}}",
+            "Version: {{#os.version}}{{os.version}}{{/os.version}}{{^os.version}}n/a{{/os.version}}",
+            "Processors: {{#os.available_processors}}{{os.available_processors}}{{/os.available_processors}}{{^os.available_processors}}n/a{{/os.available_processors}}",
+            "Process-mlockall: {{#process.mlockall}}true{{/process.mlockall}}{{^process.mlockall}}false{{/process.mlockall}}"
         ].join("<br>"),
 
-        osInfoTemplate2: [
+        /*osInfoTemplate2: [
             "Uptime: <span id='os_uptime'>n/a</span>",
             "Refresh interval: {{refresh_interval}}ms",
             "Total mem: {{#mem.total}}{{mem.total}} ({{mem.total_in_bytes}}&nbsp;b){{/mem.total}}{{^mem.total}}n/a{{/mem.total}}",
             "Total swap: {{#swap.total}}{{swap.total}} ({{swap.total_in_bytes}}&nbsp;b){{/swap.total}}{{^swap.total}}n/a{{/swap.total}}"
-        ].join("<br>"),
+        ].join("<br>"),*/
 
         indices1Template1: [
             "Docs count: <span id='indices_docs_count'>n/a</span>",
