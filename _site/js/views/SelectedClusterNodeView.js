@@ -890,7 +890,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                                         // render the row
                                         var fsInfo = Mustache.render(templates.selectedClusterNode.fsDataInfoTemplate, fs_data);
                                         var fsInfo_cnt = Mustache.render(templates.selectedClusterNode.fsDataInfo_cntTemplate, fs_data);
-                                        var fsInfo_size = Mustache.render(templates.selectedClusterNode.fsDataInfo_sizeTemplate, fs_data);
+                                        //var fsInfo_size = Mustache.render(templates.selectedClusterNode.fsDataInfo_sizeTemplate, fs_data);
 
                                         var fsp_data = _view.make("p", {}, fsInfo);
                                         var fsp_charts = _view.make("p", {},
@@ -900,7 +900,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                                                 "<svg id='svg_fsChart_size_" + keys[i] + "' clip_id='clip_fsChart_size_" + keys[i] + "' width='46.5%' height='100%' x='54%' y='0' preserveAspectRatio='xMinYMid' viewBox='0 0 270 160'/>" +
                                                 "</svg>" +
                                                 "<div width='46.5%' style='margin-left: 0%; float: left;'>" + fsInfo_cnt + "</div>" +
-                                                "<div width='46.5%' style='margin-left: 54%;'>" + fsInfo_size + "</div>" +
+                                                //"<div width='46.5%' style='margin-left: 54%;'>" + fsInfo_size + "</div>" +
                                                 "</div>"
                                                 );
 
@@ -915,40 +915,35 @@ var SelectedClusterNodeView = Backbone.View.extend({
 
                                         fs_section.after(rowFsInfo);
 
-                                        charts_disk_reads_writes_cnt[keys[i]] = bigdesk_charts.disk_reads_writes_cnt.chart(d3.select("#svg_fsChart_cnt_" + keys[i]));
-                                        charts_disk_reads_writes_size[keys[i]] = bigdesk_charts.disk_reads_writes_size.chart(d3.select("#svg_fsChart_size_" + keys[i]));
+                                        charts_disk_reads_writes_cnt[keys[i]] = bigdesk_charts.disk_reads_writes_cnt.chart(d3.select("#svg_fsChart_cnt_" + keys[i]), keys[i]);
+                                        //charts_disk_reads_writes_size[keys[i]] = bigdesk_charts.disk_reads_writes_size.chart(d3.select("#svg_fsChart_size_" + keys[i]));
                                     }
 
                                     $("#fs_disk_free_" + keys[i]).text(fs_data.free);
                                     $("#fs_disk_available_" + keys[i]).text(fs_data.available);
 
                                     // sigar & AWS check
-                                    if (fs_data.disk_writes != undefined && fs_data.disk_reads != undefined) {
-                                        var read_cnt_delta = bigdesk_charts.disk_reads_writes_cnt.series1(stats, keys[i]);
-                                        var write_cnt_delta = bigdesk_charts.disk_reads_writes_cnt.series2(stats, keys[i]);
-
-                                        if (read_cnt_delta.length > 1 && write_cnt_delta.length > 1) {
-
-                                            //                                        delta(read_cnt_delta);
-                                            //                                        delta(write_cnt_delta);
-                                            normalizedDeltaToSeconds(read_cnt_delta);
-                                            normalizedDeltaToSeconds(write_cnt_delta);
-
-                                            try {
-                                                charts_disk_reads_writes_cnt[keys[i]].animate(animatedCharts).update(read_cnt_delta, write_cnt_delta);
-                                            } catch (ignore) {
-                                            }
+                                    if (fs_data.free_in_bytes && fs_data.available_in_bytes && fs_data.total_in_bytes) {
+                                        var file_store_size_available = bigdesk_charts.disk_reads_writes_cnt.series1(stats, keys[i]);
+                                        var file_store_size_free = bigdesk_charts.disk_reads_writes_cnt.series2(stats, keys[i]);
+                                        var file_store_size_total = bigdesk_charts.disk_reads_writes_cnt.series3(stats, keys[i]);
+                                        
+                                        try {
+                                            charts_disk_reads_writes_cnt[keys[i]].animate(animatedCharts).update(file_store_size_available, file_store_size_free, file_store_size_total);
+                                        } catch (ignore) {
                                         }
 
-                                        $("#fs_disk_writes_" + keys[i]).text(fs_data.disk_writes);
-                                        $("#fs_disk_reads_" + keys[i]).text(fs_data.disk_reads);
+                                        $("#fs_store_total_" + keys[i]).text(fs_data.total);
+                                        $("#fs_store_free_" + keys[i]).text(fs_data.free);
+                                        $("#fs_store_available_" + keys[i]).text(fs_data.available);
                                     } else {
-                                        charts_disk_reads_writes_cnt[keys[i]] = bigdesk_charts.not_available.chart(charts_disk_reads_writes_cnt[keys[i]].svg());
-                                        $("#fs_disk_writes_" + keys[i]).text("n/a");
-                                        $("#fs_disk_reads_" + keys[i]).text("n/a");
+                                        //charts_disk_reads_writes_cnt[keys[i]] = bigdesk_charts.not_available.chart(charts_disk_reads_writes_cnt[keys[i]].svg());
+                                        $("#fs_store_total_" + keys[i]).text("n/a");
+                                        $("#fs_store_free_" + keys[i]).text("n/a");
+                                        $("#fs_store_available_" + keys[i]).text("n/a");
                                     }
 
-                                    // sigar & AWS check
+                                    /*// sigar & AWS check
                                     if (fs_data.disk_write_size && fs_data.disk_read_size) {
                                         var read_size_delta = bigdesk_charts.disk_reads_writes_size.series1(stats, keys[i]);
                                         var write_size_delta = bigdesk_charts.disk_reads_writes_size.series2(stats, keys[i]);
@@ -972,7 +967,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                                         charts_disk_reads_writes_size[keys[i]] = bigdesk_charts.not_available.chart(charts_disk_reads_writes_size[keys[i]].svg());
                                         $("#fs_disk_write_size_" + keys[i]).text("n/a");
                                         $("#fs_disk_read_size_" + keys[i]).text("n/a");
-                                    }
+                                    }*/
                                 }
                             } else {
                                 // delete all fs info

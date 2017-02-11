@@ -1027,13 +1027,14 @@ bigdesk_charts.transport_txrx = {
 
 bigdesk_charts.disk_reads_writes_cnt = {
 
-    chart: function(element) {
+    chart: function(element, fs_key) {
         return timeSeriesChart()
             .width(bigdesk_charts.default.width).height(bigdesk_charts.default.height)
             .legend({
-                caption: "# of Reads & Writes (Δ)",
-                series1: "Reads",
-                series2: "Writes",
+                caption: "FS(" + fs_key + ") Size",
+                series1: "Available",
+                series2: "Free",
+                series3: "Total",
                 margin_left: 5,
                 margin_bottom: 6,
                 width: 70})
@@ -1044,7 +1045,7 @@ bigdesk_charts.disk_reads_writes_cnt = {
         return  stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.fs.timestamp,
-                value: +snapshot.node.fs.data[fs_key].disk_reads
+                value: +snapshot.node.fs.data[fs_key].available_in_bytes
             }
         })
     },
@@ -1053,7 +1054,16 @@ bigdesk_charts.disk_reads_writes_cnt = {
         return  stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.fs.timestamp,
-                value: +snapshot.node.fs.data[fs_key].disk_writes
+                value: +snapshot.node.fs.data[fs_key].free_in_bytes
+            }
+        })
+    },
+
+    series3: function(stats, fs_key) {
+        return  stats.map(function(snapshot){
+            return {
+                timestamp: +snapshot.node.fs.timestamp,
+                value: +snapshot.node.fs.data[fs_key].total_in_bytes
             }
         })
     }

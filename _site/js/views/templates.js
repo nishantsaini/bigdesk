@@ -122,21 +122,21 @@ var templates = {
         ].join(""),
         process_MemTemplate: [
             "<div>Total virtual: <span id='process_mem_total_virtual'>n/a</span></div>",
-                    //"<div>Resident: <span id='process_mem_resident'>n/a</span></div>",
-                    //"<div>Share: <span id='process_mem_share'>n/a</span></div>"
+            //"<div>Resident: <span id='process_mem_resident'>n/a</span></div>",
+            //"<div>Share: <span id='process_mem_share'>n/a</span></div>"
         ].join(""),
         process_CPU_timeTemplate: [
             "<!--#-->",
             "<div>Total: <span id='process_cpu_time_total'>n/a</span></div>"
         ].join(""),
         /*process_CPU_pctTemplate: [
-         "<div>Total: <span id='process_cpu_pct_total'>n/a</span></div>",
-         "<div>Process: <span id='process_cpu_pct_process'>n/a</span></div>"
-         ].join(""),*/
+            "<div>Total: <span id='process_cpu_pct_total'>n/a</span></div>",
+            "<div>Process: <span id='process_cpu_pct_process'>n/a</span></div>"
+        ].join(""),*/
         osCpu: [
             "<div>Total: 100%</div>",
             "<div>Used: <span id='os_cpu_used'>n/a</span></div>",
-                    //"<div>Sys: <span id='os_cpu_sys'>n/a</span></div>"
+            //"<div>Sys: <span id='os_cpu_sys'>n/a</span></div>"
         ].join(""),
         osMem: [
             "<div>Free: <span id='os_mem_free'>n/a</span></div>",
@@ -240,7 +240,7 @@ var templates = {
             "Index: <span id='indices_indexing_index_time'>n/a</span>"
         ].join("<br>"),
         fsDataInfoTemplate: [
-            "<div>Device: {{#dev}}<span class='pre'>{{dev}}</span>{{/dev}}{{^dev}}n/a{{/dev}}</div>",
+            "<div>Type: {{#type}}<span class='pre'>{{type}}</span>{{/type}}{{^type}}n/a{{/type}}</div>",
             "<div>Mount: {{#mount}}<span class='pre'>{{mount}}</span>{{/mount}}{{^mount}}n/a{{/mount}}</div>",
             "<div>Path: <span class='pre'>{{path}}</span></div>",
             "<div>Free: <span id='fs_disk_free_{{key}}'>{{free}}</span></div>",
@@ -248,13 +248,14 @@ var templates = {
             "<div>Total: {{total}}</div>"
         ].join(""),
         fsDataInfo_cntTemplate: [
-            "<div>Writes: <span id='fs_disk_writes_{{key}}'>n/a</span></div>",
-            "<div>Reads: <span id='fs_disk_reads_{{key}}'>n/a</span></div>"
+            "<div>Total: <span id='fs_store_total_{{key}}'>n/a</span></div>",
+            "<div>Free: <span id='fs_store_free_{{key}}'>n/a</span></div>",
+            "<div>Available: <span id='fs_store_available_{{key}}'>n/a</span></div>"
         ].join(""),
-        fsDataInfo_sizeTemplate: [
+        /*fsDataInfo_sizeTemplate: [
             "<div>Write: <span id='fs_disk_write_size_{{key}}'>n/a</span></div>",
             "<div>Read: <span id='fs_disk_read_size_{{key}}'>n/a</span></div>"
-        ].join("")
+        ].join("")*/
 
     }
 
