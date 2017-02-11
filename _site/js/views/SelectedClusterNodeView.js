@@ -467,22 +467,22 @@ var SelectedClusterNodeView = Backbone.View.extend({
                         if (stats_the_latest && stats_the_latest.node && stats_the_latest.node.os && stats_the_latest.node.os.load_average) {
 
                             var os_loadAvg_0 = bigdesk_charts.osLoadAvg.series1(stats);
-                            var os_loadAvg_1 = bigdesk_charts.osLoadAvg.series2(stats);
-                            var os_loadAvg_2 = bigdesk_charts.osLoadAvg.series3(stats);
+                            //var os_loadAvg_1 = bigdesk_charts.osLoadAvg.series2(stats);
+                            //var os_loadAvg_2 = bigdesk_charts.osLoadAvg.series3(stats);
 
                             try {
-                                chart_osLoadAvg.animate(animatedCharts).update(os_loadAvg_0, os_loadAvg_1, os_loadAvg_2);
+                                chart_osLoadAvg.animate(animatedCharts).update(os_loadAvg_0);
                             } catch (ignore) {
                             }
 
-                            $("#os_load_0").text(stats_the_latest.node.os.load_average["0"]);
-                            $("#os_load_1").text(stats_the_latest.node.os.load_average["1"]);
-                            $("#os_load_2").text(stats_the_latest.node.os.load_average["2"]);
+                            $("#os_load_0").text(stats_the_latest.node.os.load_average);
+                            //$("#os_load_1").text(stats_the_latest.node.os.load_average["1"]);
+                            //$("#os_load_2").text(stats_the_latest.node.os.load_average["2"]);
                         } else {
                             chart_osLoadAvg = bigdesk_charts.not_available.chart(chart_osLoadAvg.svg());
                             $("#os_load_0").text("n/a");
-                            $("#os_load_1").text("n/a");
-                            $("#os_load_2").text("n/a");
+                            //$("#os_load_1").text("n/a");
+                            //$("#os_load_2").text("n/a");
                         }
                     });
 

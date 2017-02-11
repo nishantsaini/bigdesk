@@ -535,12 +535,10 @@ bigdesk_charts.osLoadAvg = {
             .width(bigdesk_charts.default.width).height(bigdesk_charts.default.height)
             .legend({
                 caption: "Load Average",
-                series1: "0",
-                series2: "1",
-                series3: "2",
+                series1: "Load",
                 margin_left: 5,
                 margin_bottom: 6,
-                width: 40})
+                width: 50})
             .svg(element);
     },
 
@@ -548,12 +546,12 @@ bigdesk_charts.osLoadAvg = {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.os.timestamp,
-                value: + snapshot.node.os.load_average["0"]
+                value: + snapshot.node.os.load_average
             }
         })
     },
 
-    series2: function(stats) {
+    /*series2: function(stats) {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.os.timestamp,
@@ -569,7 +567,7 @@ bigdesk_charts.osLoadAvg = {
                 value: + snapshot.node.os.load_average["2"]
             }
         })
-    }
+    }*/
 };
 
 bigdesk_charts.indicesSearchReqs = {
