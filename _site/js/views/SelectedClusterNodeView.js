@@ -422,8 +422,8 @@ var SelectedClusterNodeView = Backbone.View.extend({
                             } catch (ignore) {
                             }
 
-                            $("#os_mem_free").text(stats_the_latest.node.os.mem.actual_free);
-                            $("#os_mem_used").text(stats_the_latest.node.os.mem.actual_used);
+                            $("#os_mem_free").text(stats_the_latest.node.os.mem.free);
+                            $("#os_mem_used").text(stats_the_latest.node.os.mem.used);
                         } else {
                             chart_osMem = bigdesk_charts.not_available.chart(chart_osMem.svg());
                             $("#os_mem_free").text("n/a");

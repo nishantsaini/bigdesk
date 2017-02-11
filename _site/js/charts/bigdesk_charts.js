@@ -473,7 +473,7 @@ bigdesk_charts.osMem = {
         return  stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.os.timestamp,
-                value: +snapshot.node.os.mem.actual_used_in_bytes
+                value: +snapshot.node.os.mem.used_in_bytes
             }
         })
     },
@@ -482,7 +482,7 @@ bigdesk_charts.osMem = {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.os.timestamp,
-                value: ((+snapshot.node.os.mem.actual_free_in_bytes) + (+snapshot.node.os.mem.actual_used_in_bytes))
+                value: +snapshot.node.os.mem.free_in_bytes
             }
         })
     }
