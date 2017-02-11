@@ -648,46 +648,48 @@ var SelectedClusterNodeView = Backbone.View.extend({
 
                     _.defer(function () {
                         var indices_cache_field_size = bigdesk_charts.indicesCacheSize.series1(stats);
-                        var indices_cache_filter_size = bigdesk_charts.indicesCacheSize.series2(stats);
-                        var indices_id_cache_size = bigdesk_charts.indicesCacheSize.series3(stats);
+                        var indices_query_cache_size = bigdesk_charts.indicesCacheSize.series2(stats);
+                        var indices_request_cache_size = bigdesk_charts.indicesCacheSize.series3(stats);
 
                         try {
                             chart_indicesCacheSize.animate(animatedCharts)
-                                    .update(indices_cache_field_size, indices_cache_filter_size, indices_id_cache_size);
+                                    .update(indices_cache_field_size, indices_query_cache_size, indices_request_cache_size);
                         } catch (ignore) {
                         }
 
-                        if (stats_the_latest.node && stats_the_latest.node.indices && stats_the_latest.node.indices.filter_cache) {
-                            $("#indices_filter_cache_size").text(stats_the_latest.node.indices.filter_cache.memory_size);
+                        if (stats_the_latest.node && stats_the_latest.node.indices && stats_the_latest.node.indices.query_cache) {
+                            $("#indices_query_cache_size").text(stats_the_latest.node.indices.query_cache.memory_size);
                             $("#indices_field_cache_size").text(stats_the_latest.node.indices.fielddata.memory_size);
-                            $("#indices_id_cache_size").text(stats_the_latest.node.indices.id_cache.memory_size);
+                            $("#indices_request_cache_size").text(stats_the_latest.node.indices.request_cache.memory_size);
                         } else {
-                            $("#indices_filter_cache_size").text("n/a");
+                            $("#indices_query_cache_size").text("n/a");
                             $("#indices_field_cache_size").text("n/a");
-                            $("#indices_id_cache_size").text("n/a");
+                            $("#indices_request_cache_size").text("n/a");
                         }
                     });
 
                     // --------------------------------------------
                     // Indices: cache evictions
 
-                    _.defer(function () {
+                    _.defer(function () {                        
                         var indices_cache_field_evictions = bigdesk_charts.indicesCacheEvictions.series1(stats);
-                        var indices_cache_filter_evictions = bigdesk_charts.indicesCacheEvictions.series2(stats);
+                        var indices_query_cache_evictions = bigdesk_charts.indicesCacheEvictions.series2(stats);
+                        var indices_request_cache_evictions = bigdesk_charts.indicesCacheEvictions.series3(stats);
 
-                        if (indices_cache_field_evictions.length > 1 && indices_cache_filter_evictions.length > 1) {
+                        if (indices_cache_field_evictions.length > 1 && indices_query_cache_evictions.length > 1) {
 
                             normalizedDeltaToSeconds(indices_cache_field_evictions);
-                            normalizedDeltaToSeconds(indices_cache_filter_evictions);
+                            normalizedDeltaToSeconds(indices_query_cache_evictions);
+                            normalizedDeltaToSeconds(indices_request_cache_evictions);
 
                             try {
-                                chart_indicesCacheEvictions.animate(animatedCharts).update(indices_cache_field_evictions, indices_cache_filter_evictions);
+                                chart_indicesCacheEvictions.animate(animatedCharts).update(indices_cache_field_evictions, indices_query_cache_evictions, indices_request_cache_evictions);
                             } catch (ignore) {
                             }
 
-                            $("#indices_filter_cache_evictions").text(stats_the_latest.node.indices.filter_cache.evictions);
+                            $("#indices_request_cache_evictions").text(stats_the_latest.node.indices.request_cache.evictions);
+                            $("#indices_query_cache_evictions").text(stats_the_latest.node.indices.query_cache.evictions);
                             $("#indices_field_cache_evictions").text(stats_the_latest.node.indices.fielddata.evictions);
-
                         }
                     });
 

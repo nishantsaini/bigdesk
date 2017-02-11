@@ -122,21 +122,21 @@ var templates = {
         ].join(""),
         process_MemTemplate: [
             "<div>Total virtual: <span id='process_mem_total_virtual'>n/a</span></div>",
-            //"<div>Resident: <span id='process_mem_resident'>n/a</span></div>",
-            //"<div>Share: <span id='process_mem_share'>n/a</span></div>"
+                    //"<div>Resident: <span id='process_mem_resident'>n/a</span></div>",
+                    //"<div>Share: <span id='process_mem_share'>n/a</span></div>"
         ].join(""),
         process_CPU_timeTemplate: [
             "<!--#-->",
             "<div>Total: <span id='process_cpu_time_total'>n/a</span></div>"
         ].join(""),
         /*process_CPU_pctTemplate: [
-            "<div>Total: <span id='process_cpu_pct_total'>n/a</span></div>",
-            "<div>Process: <span id='process_cpu_pct_process'>n/a</span></div>"
-        ].join(""),*/
+         "<div>Total: <span id='process_cpu_pct_total'>n/a</span></div>",
+         "<div>Process: <span id='process_cpu_pct_process'>n/a</span></div>"
+         ].join(""),*/
         osCpu: [
             "<div>Total: 100%</div>",
             "<div>Used: <span id='os_cpu_used'>n/a</span></div>",
-            //"<div>Sys: <span id='os_cpu_sys'>n/a</span></div>"
+                    //"<div>Sys: <span id='os_cpu_sys'>n/a</span></div>"
         ].join(""),
         osMem: [
             "<div>Free: <span id='os_mem_free'>n/a</span></div>",
@@ -222,12 +222,13 @@ var templates = {
             "Missing: <span id='indices_missing_time'>n/a</span>"
         ].join("<br>"),
         indicesCacheSizeTemplate: [
-            "ID: <span id='indices_id_cache_size'>n/a</span>",
-            "Filter: <span id='indices_filter_cache_size'>n/a</span>",
+            "Request: <span id='indices_request_cache_size'>n/a</span>",
+            "Query: <span id='indices_query_cache_size'>n/a</span>",
             "Field: <span id='indices_field_cache_size'>n/a</span>"
         ].join("<br>"),
         indicesCacheEvictionsTemplate: [
-            "Filter: <span id='indices_filter_cache_evictions'>n/a</span>",
+            "Request: <span id='indices_request_cache_evictions'>n/a</span>",
+            "Query: <span id='indices_query_cache_evictions'>n/a</span>",
             "Field: <span id='indices_field_cache_evictions'>n/a</span>"
         ].join("<br>"),
         indicesIndexingReqsTemplate: [

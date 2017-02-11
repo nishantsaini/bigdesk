@@ -809,8 +809,8 @@ bigdesk_charts.indicesCacheSize = {
             .legend({
                 caption: "Cache size",
                 series1: "Field",
-                series2: "Filter",
-                series3: "ID",
+                series2: "Query",
+                series3: "Request",
                 margin_left: 5,
                 margin_bottom: 6,
                 width: 65
@@ -831,7 +831,7 @@ bigdesk_charts.indicesCacheSize = {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.id,
-                value: +snapshot.node.indices.filter_cache.memory_size_in_bytes
+                value: +snapshot.node.indices.query_cache.memory_size_in_bytes
             }
         })
     },
@@ -840,7 +840,7 @@ bigdesk_charts.indicesCacheSize = {
 		return stats.map(function(snapshot){
 			return {
 				timestamp: +snapshot.id,
-				value: +snapshot.node.indices.id_cache.memory_size_in_bytes
+				value: +snapshot.node.indices.request_cache.memory_size_in_bytes
 			}
 		})
 	}
@@ -853,7 +853,8 @@ bigdesk_charts.indicesCacheEvictions = {
             .legend({
                 caption: "Cache evictions (Δ)",
                 series1: "Field",
-                series2: "Filter",
+                series2: "Query",
+                series3: "Request",
                 margin_left: 5,
                 margin_bottom: 6,
                 width: 65
@@ -874,7 +875,16 @@ bigdesk_charts.indicesCacheEvictions = {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.id,
-                value: +snapshot.node.indices.filter_cache.evictions
+                value: +snapshot.node.indices.query_cache.evictions
+            }
+        })
+    },
+
+    series3: function(stats) {
+        return stats.map(function(snapshot){
+            return {
+                timestamp: +snapshot.id,
+                value: +snapshot.node.indices.request_cache.evictions
             }
         })
     }
