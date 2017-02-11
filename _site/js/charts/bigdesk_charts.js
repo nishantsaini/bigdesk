@@ -887,8 +887,7 @@ bigdesk_charts.processCPU_time = {
             .width(bigdesk_charts.default.width).height(bigdesk_charts.default.height)
             .legend({
                 caption: "CPU time (Δ)",
-                series1: "User",
-                series2: "Sys",
+                series1: "Total",
                 margin_left: 5,
                 margin_bottom: 6,
                 width: 45})
@@ -899,19 +898,19 @@ bigdesk_charts.processCPU_time = {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.process.timestamp,
-                value: +snapshot.node.process.cpu.user_in_millis
+                value: +snapshot.node.process.cpu.total_in_millis
             }
         })
     },
 
-    series2: function(stats) {
+    /*series2: function(stats) {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.process.timestamp,
                 value: +snapshot.node.process.cpu.sys_in_millis
             }
         })
-    }
+    }*/
 };
 
 bigdesk_charts.processCPU_pct = {

@@ -711,31 +711,26 @@ var SelectedClusterNodeView = Backbone.View.extend({
 
                             var calcType = $("#process_time_avg_calc_type").find(":selected").val();
 
-                            var process_cpu_time_user_delta = bigdesk_charts.processCPU_time.series1(stats);
-                            var process_cpu_time_sys_delta = bigdesk_charts.processCPU_time.series2(stats);
+                            var process_cpu_time_total_delta = bigdesk_charts.processCPU_time.series1(stats);
 
-                            if (process_cpu_time_sys_delta.length > 1 && process_cpu_time_user_delta.length > 1) {
+                            if (process_cpu_time_total_delta.length > 1) {
 
                                 if (calcType == "weighted") {
-                                    normalizedDeltaToSeconds(process_cpu_time_user_delta);
-                                    normalizedDeltaToSeconds(process_cpu_time_sys_delta);
+                                    normalizedDeltaToSeconds(process_cpu_time_total_delta);
                                 } else {
-                                    delta(process_cpu_time_user_delta);
-                                    delta(process_cpu_time_sys_delta);
+                                    delta(process_cpu_time_total_delta);
                                 }
 
                                 try {
-                                    chart_processCPU_time.animate(animatedCharts).update(process_cpu_time_user_delta, process_cpu_time_sys_delta);
+                                    chart_processCPU_time.animate(animatedCharts).update(process_cpu_time_total_delta);
                                 } catch (ignore) {
                                 }
                             }
 
-                            $("#process_cpu_time_sys").text(stats_the_latest.node.process.cpu.sys_in_millis + "ms");
-                            $("#process_cpu_time_user").text(stats_the_latest.node.process.cpu.user_in_millis + "ms");
+                            $("#process_cpu_time_total").text(stats_the_latest.node.process.cpu.total_in_millis + "ms");
                         } else {
                             chart_processCPU_time = bigdesk_charts.not_available.chart(chart_processCPU_time.svg());
-                            $("#process_cpu_time_sys").text("n/a");
-                            $("#process_cpu_time_user").text("n/a");
+                            $("#process_cpu_time_total").text("n/a");
                         }
                     });
 
