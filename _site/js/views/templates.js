@@ -122,8 +122,8 @@ var templates = {
         ].join(""),
         process_MemTemplate: [
             "<div>Total virtual: <span id='process_mem_total_virtual'>n/a</span></div>",
-            "<div>Resident: <span id='process_mem_resident'>n/a</span></div>",
-            "<div>Share: <span id='process_mem_share'>n/a</span></div>"
+            //"<div>Resident: <span id='process_mem_resident'>n/a</span></div>",
+            //"<div>Share: <span id='process_mem_share'>n/a</span></div>"
         ].join(""),
         process_CPU_timeTemplate: [
             "<!--#-->",

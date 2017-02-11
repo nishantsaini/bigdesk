@@ -943,20 +943,18 @@ bigdesk_charts.processCPU_pct = {
 bigdesk_charts.processMem = {
 
     chart: function(element) {
-        return timeAreaChart()
+        return timeSeriesChart()
             .width(bigdesk_charts.default.width).height(bigdesk_charts.default.height)
             .legend({
                 caption: "Mem",
-                series1: "share",
-                series2: "resident",
-                series3: "total virtual",
+                series1: "total virtual",
                 margin_left: 5,
                 margin_bottom: 6,
                 width: 100})
             .svg(element);
     },
 
-    series1: function(stats) {
+    /*series1: function(stats) {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.process.timestamp,
@@ -972,9 +970,9 @@ bigdesk_charts.processMem = {
                 value: +snapshot.node.process.mem.resident_in_bytes
             }
         })
-    },
+    },*/
 
-    series3: function(stats) {
+    series1: function(stats) {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.process.timestamp,
