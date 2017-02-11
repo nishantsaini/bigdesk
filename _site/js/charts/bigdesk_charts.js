@@ -418,19 +418,28 @@ bigdesk_charts.osCpu = {
             .width(bigdesk_charts.default.width).height(bigdesk_charts.default.height)
             .legend({
                 caption: "CPU (%)",
-                series1: "Sys",
-                series2: "User",
+                series1: "Total",
+                series2: "Used",                
                 margin_left: 5,
                 margin_bottom: 6,
                 width: 55})
             .svg(element);
     },
 
+    /*series2: function(stats) {
+        return stats.map(function(snapshot){
+            return {
+                timestamp: +snapshot.node.os.timestamp,
+                value: (+snapshot.node.os.cpu.user + +snapshot.node.os.cpu.sys)
+            }
+        })
+    },*/
+
     series1: function(stats) {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.os.timestamp,
-                value: +snapshot.node.os.cpu.sys
+                value: 100
             }
         })
     },
@@ -439,19 +448,10 @@ bigdesk_charts.osCpu = {
         return stats.map(function(snapshot){
             return {
                 timestamp: +snapshot.node.os.timestamp,
-                value: (+snapshot.node.os.cpu.user + +snapshot.node.os.cpu.sys)
+                value: +snapshot.node.os.cpu_percent
             }
         })
     },
-
-    series3: function(stats) {
-        return stats.map(function(snapshot){
-            return {
-                timestamp: +snapshot.node.os.timestamp,
-                value: 100
-            }
-        })
-    }
 };
 
 bigdesk_charts.osMem = {

@@ -374,7 +374,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                     });
 
 
-                    // --------------------------------------------
+                    /*// --------------------------------------------
                     // OS Info
 
                     _.defer(function () {
@@ -383,30 +383,27 @@ var SelectedClusterNodeView = Backbone.View.extend({
                         } else {
                             $("#os_uptime").text("n/a");
                         }
-                    });
+                    });*/
 
                     // --------------------------------------------
                     // OS CPU
 
                     _.defer(function () {
                         // sigar & AWS check
-                        if (stats_the_latest && stats_the_latest.node && stats_the_latest.node.os && stats_the_latest.node.os.cpu) {
+                        if (stats_the_latest && stats_the_latest.node && stats_the_latest.node.os) {
 
-                            var os_cpu_sys = bigdesk_charts.osCpu.series1(stats);
-                            var os_cpu_user = bigdesk_charts.osCpu.series2(stats);
-                            var os_cpu_idle = bigdesk_charts.osCpu.series3(stats);
+                            var os_cpu_total = bigdesk_charts.osCpu.series1(stats);
+                            var os_cpu_used = bigdesk_charts.osCpu.series2(stats);
 
                             try {
-                                chart_osCpu.animate(animatedCharts).update(os_cpu_sys, os_cpu_user, os_cpu_idle);
+                                chart_osCpu.animate(animatedCharts).update(os_cpu_used, os_cpu_total);
                             } catch (ignore) {
                             }
-
-                            $("#os_cpu_user").text(stats_the_latest.node.os.cpu.user + "%");
-                            $("#os_cpu_sys").text(stats_the_latest.node.os.cpu.sys + "%");
+                            
+                            $("#os_cpu_used").text(stats_the_latest.node.os.cpu_percent + "%");
                         } else {
                             chart_osCpu = bigdesk_charts.not_available.chart(chart_osCpu.svg());
-                            $("#os_cpu_user").text("n/a");
-                            $("#os_cpu_sys").text("n/a");
+                            $("#os_cpu_used").text("n/a");
                         }
                     });
 
