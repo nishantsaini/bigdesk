@@ -375,15 +375,15 @@ var SelectedClusterNodeView = Backbone.View.extend({
 
 
                     /*// --------------------------------------------
-                    // OS Info
-
-                    _.defer(function () {
-                        if (stats_the_latest && stats_the_latest.node) {
-                            $("#os_uptime").text(stats_the_latest.node.os.uptime);
-                        } else {
-                            $("#os_uptime").text("n/a");
-                        }
-                    });*/
+                     // OS Info
+                     
+                     _.defer(function () {
+                     if (stats_the_latest && stats_the_latest.node) {
+                     $("#os_uptime").text(stats_the_latest.node.os.uptime);
+                     } else {
+                     $("#os_uptime").text("n/a");
+                     }
+                     });*/
 
                     // --------------------------------------------
                     // OS CPU
@@ -399,7 +399,7 @@ var SelectedClusterNodeView = Backbone.View.extend({
                                 chart_osCpu.animate(animatedCharts).update(os_cpu_used, os_cpu_total);
                             } catch (ignore) {
                             }
-                            
+
                             $("#os_cpu_used").text(stats_the_latest.node.os.cpu_percent + "%");
                         } else {
                             chart_osCpu = bigdesk_charts.not_available.chart(chart_osCpu.svg());
@@ -743,21 +743,20 @@ var SelectedClusterNodeView = Backbone.View.extend({
                     // Process: file descriptors
 
                     _.defer(function () {
-                        var open_file_descriptors = bigdesk_charts.fileDescriptors.series1(stats);
-                        var max_file_descriptors = open_file_descriptors.slice(0).map(function (snapshot) {
-                            return {
-                                timestamp: +snapshot.timestamp,
-                                value: +selectedNodeInfo.nodes[selectedNodeId].process.max_file_descriptors
+                        if (stats_the_latest && stats_the_latest.node && stats_the_latest.node.process) {
+                            var open_file_descriptors = bigdesk_charts.fileDescriptors.series1(stats);
+                            var max_file_descriptors = bigdesk_charts.fileDescriptors.series2(stats);
+
+                            try {
+                                chart_fileDescriptors.animate(animatedCharts).update(open_file_descriptors, max_file_descriptors);
+                            } catch (ignore) {
                             }
-                        });
 
-                        try {
-                            chart_fileDescriptors.animate(animatedCharts).update(open_file_descriptors, max_file_descriptors);
-                        } catch (ignore) {
-                        }
-
-                        if (open_file_descriptors.length > 0) {
-                            $("#open_file_descriptors").text(open_file_descriptors[open_file_descriptors.length - 1].value);
+                            $("#open_file_descriptors").text(stats_the_latest.node.process.open_file_descriptors);
+                            $("#max_file_descriptors").text(stats_the_latest.node.process.max_file_descriptors);
+                        } else {
+                            $("#open_file_descriptors").text("na");
+                            $("#max_file_descriptors").text("na");
                         }
                     });
 

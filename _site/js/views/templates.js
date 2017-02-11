@@ -116,7 +116,7 @@ var templates = {
             "<div>Count: <span id='tp_refresh_count'>n/a</span></div>"
         ].join(""),
         fileDescriptorsTemplate: [
-            "<div>Max: {{process.max_file_descriptors}}</div>",
+            "<div>Max: <span id='max_file_descriptors'>n/a</span></div>",
             "<div>Open: <span id='open_file_descriptors'>n/a</span></div>"
 //        "<div>Refresh interval: {{process.refresh_interval}}ms</div>"
         ].join(""),
@@ -136,8 +136,8 @@ var templates = {
         ].join(""),
         osCpu: [
             "<div>Total: 100%</div>",
-            "<div>User: <span id='os_cpu_user'>n/a</span></div>",
-            "<div>Sys: <span id='os_cpu_sys'>n/a</span></div>"
+            "<div>Used: <span id='os_cpu_used'>n/a</span></div>",
+            //"<div>Sys: <span id='os_cpu_sys'>n/a</span></div>"
         ].join(""),
         osMem: [
             "<div>Free: <span id='os_mem_free'>n/a</span></div>",
@@ -148,9 +148,9 @@ var templates = {
             "<div>Used: <span id='os_swap_used'>n/a</span></div>"
         ].join(""),
         osLoad: [
-            "<div>2: <span id='os_load_2'>n/a</span></div>",
-            "<div>1: <span id='os_load_1'>n/a</span></div>",
-            "<div>0: <span id='os_load_0'>n/a</span></div>"
+            //"<div>2: <span id='os_load_2'>n/a</span></div>",
+            //"<div>1: <span id='os_load_1'>n/a</span></div>",
+            "<div>Load Avg: <span id='os_load_0'>n/a</span></div>"
         ].join(""),
         channelsTemplate: [
             "<div>Transport: <span id='open_transport_channels'>n/a</span></div>",

@@ -52,6 +52,15 @@ bigdesk_charts.fileDescriptors = {
                 value: +snapshot.node.process.open_file_descriptors
             }
         })
+    },
+
+    series2: function(stats) {
+        return stats.map(function(snapshot){
+            return {
+                timestamp: +snapshot.node.process.timestamp,
+                value: +snapshot.node.process.max_file_descriptors
+            }
+        })
     }
 };
 
